@@ -1,0 +1,62 @@
+@startuml
+
+class Main {
+  + main(args: String[]): void
+}
+
+class Patient {
+  - patientId: String
+  - fullName: String
+  - birthYear: int
+  - hasAppointment: boolean
+  - doctor: Doctor
+  + Patient(String, String, int, boolean, Doctor)
+  + Patient(String, String, int)
+  + scheduleAppointment(doctor: Doctor): void
+  + cancelAppointment(): void
+  + hasActiveAppointment(): boolean
+  + toString(): String
+  + equals(Object): boolean
+  + hashCode(): int
+}
+
+class Doctor {
+  - doctorId: String
+  - fullName: String
+  - specialization: String
+  - available: boolean
+  + Doctor(String, String, String, boolean)
+  + Doctor(String, String, String)
+  + canAcceptPatient(): boolean
+  + markBusy(): void
+  + markAvailable(): void
+  + toString(): String
+  + equals(Object): boolean
+  + hashCode(): int
+}
+
+class Appointment {
+  - appointmentId: String
+  - patient: Patient
+  - doctor: Doctor
+  - date: String
+  - status: String
+  + Appointment(String, Patient, Doctor, String, String)
+  + Appointment(String, Patient, Doctor, String)
+  + complete(): void
+  + cancel(): void
+  + isActive(): boolean
+  + toString(): String
+  + equals(Object): boolean
+  + hashCode(): int
+}
+
+Main --> Patient      : використовує
+Main --> Doctor       : використовує
+Main --> Appointment  : використовує
+
+Patient     --> Doctor      : призначений лікар
+Appointment --> Patient     : належить пацієнту
+Appointment --> Doctor      : прив'язаний до лікаря
+
+@enduml
